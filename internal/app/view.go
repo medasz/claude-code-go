@@ -17,8 +17,6 @@ var (
 	softTextColor   = lipgloss.Color("#D7DBE2")
 	brandColor      = lipgloss.Color("#F3EBD2")
 	noticeAccent    = lipgloss.Color("#E6C17A")
-	clawdBodyColor  = lipgloss.Color("#E6926B")
-	clawdFaceColor  = lipgloss.Color("#F3C7A7")
 	userAccent      = lipgloss.Color("#89D3C7")
 	toolAccent      = lipgloss.Color("#BFC7D5")
 	errorAccent     = lipgloss.Color("#FF8B8B")
@@ -160,7 +158,7 @@ func renderStartupCard(width int) string {
 			lipgloss.Center,
 			lipgloss.NewStyle().Width(leftWidth-3).Align(lipgloss.Center).Bold(true).Foreground(softTextColor).Render("Welcome back!"),
 			"",
-			lipgloss.NewStyle().Width(leftWidth-3).Align(lipgloss.Center).Render(renderStartupMascot()),
+			lipgloss.NewStyle().Width(leftWidth-3).Align(lipgloss.Center).Foreground(noticeAccent).Render(startupMascot()),
 			"",
 			lipgloss.NewStyle().Width(leftWidth-3).Align(lipgloss.Center).Foreground(mutedColor).Render("Sonnet 4.6 | API Usage Billing"),
 			lipgloss.NewStyle().Width(leftWidth-3).Align(lipgloss.Center).Foreground(mutedColor).Render("D:\\code\\claude-code"),
@@ -421,17 +419,12 @@ func renderComposer(m model, width int) string {
 	return lipgloss.NewStyle().MarginTop(1).Render(inputBody)
 }
 
-func renderStartupMascot() string {
-	body := lipgloss.NewStyle().Foreground(clawdBodyColor)
-	face := lipgloss.NewStyle().
-		Foreground(clawdBodyColor).
-		Background(clawdFaceColor)
-
-	row1 := body.Render(" \u2590") + face.Render("\u259b\u2588\u2588\u2588\u259c") + body.Render("\u258c ")
-	row2 := body.Render("\u259d\u259c") + face.Render("\u2588\u2588\u2588\u2588\u2588") + body.Render("\u259b\u2598")
-	row3 := body.Render("  \u2598\u2598 \u259d\u259d  ")
-
-	return strings.Join([]string{row1, row2, row3}, "\n")
+func startupMascot() string {
+	return strings.Join([]string{
+		" " + "\u2590" + "\u259b\u2588\u2588\u2588\u259c" + "\u258c" + " ",
+		"\u259d\u259c" + "\u2588\u2588\u2588\u2588\u2588" + "\u259b\u2598",
+		"  " + "\u2598\u2598" + " " + "\u259d\u259d" + "  ",
+	}, "\n")
 }
 
 func renderStartupFrame(content, title string, width int) string {
